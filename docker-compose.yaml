@@ -1,0 +1,16 @@
+services:
+  api:
+    build:
+      context: .
+    ports:
+      - "${PORT:-3000}:3000"
+    env_file:
+      - .env
+      - .env.development
+    networks:
+      - taskflow_network
+
+networks:
+  taskflow_network:
+    name: taskflow_network
+    driver: bridge
