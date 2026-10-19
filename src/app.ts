@@ -1,6 +1,6 @@
 import express from "express";
 
-import { loggerMiddleware, notFoundErrorMiddleware } from "#middlewares";
+import { loggerMiddleware, notFoundErrorMiddleware, errorMiddleware } from "#middlewares";
 import { loadDotEnv } from "#utils";
 import { apiRouter } from "#routers";
 
@@ -15,5 +15,6 @@ app.use(loggerMiddleware);
 app.use("/api/v1", apiRouter);
 
 app.use(notFoundErrorMiddleware);
+app.use(errorMiddleware);
 
 export default app;
