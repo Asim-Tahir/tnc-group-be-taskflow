@@ -1,10 +1,7 @@
 import express from "express";
 
 import { loggerMiddleware, notFoundErrorMiddleware, errorMiddleware } from "#middlewares";
-import { loadDotEnv } from "#utils";
 import { apiRouter } from "#routers";
-
-await loadDotEnv();
 
 const app = express();
 

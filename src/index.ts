@@ -1,6 +1,9 @@
 import { styleText } from "node:util";
 
-import { logger } from "#utils";
+import { logger, loadDotEnv } from "#utils";
+
+await loadDotEnv();
+
 import { PORT } from "#constants";
 
 import app from "./app.ts";
