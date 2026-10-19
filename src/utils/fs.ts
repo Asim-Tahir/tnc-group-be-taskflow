@@ -25,3 +25,16 @@ export async function readFile(filePath: PathLike): Promise<string> {
     return "";
   }
 }
+
+/**
+ * Write {@link content the content} of the file to {@link filePath the given path}
+ */
+export async function writeFile(filePath: PathLike, content: string): Promise<boolean> {
+  try {
+    await fs.writeFile(filePath, content, { flag: "w", encoding: "utf-8" });
+
+    return true;
+  } catch {
+    return false;
+  }
+}
