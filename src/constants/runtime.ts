@@ -5,6 +5,12 @@ import { cwd } from "node:process";
  */
 export const ENV = process.env.NODE_ENV || "development";
 
+export const DEFAULT_PORT = 3000;
+/**
+ * Server port
+ */
+export const PORT = parseInt(process.env.PORT || `${DEFAULT_PORT}`);
+
 /**
  * Current working directory
  */
