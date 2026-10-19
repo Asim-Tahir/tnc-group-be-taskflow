@@ -4,7 +4,7 @@ import { logger, loadDotEnv } from "#utils";
 
 await loadDotEnv();
 
-import { PORT } from "#constants";
+import { PORT } from "#env";
 
 import app from "./app.ts";
 

@@ -2,7 +2,7 @@ import path from "node:path";
 import { styleText } from "node:util";
 import { loadEnvFile } from "node:process";
 
-import { ENV, CWD } from "#constants";
+import { ENV, CWD } from "#env";
 import { isFileExists, logger } from "#utils";
 
 /**

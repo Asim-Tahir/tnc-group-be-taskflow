@@ -5,10 +5,6 @@
   "module": "src/index.ts",
   "type": "module",
   "imports": {
-    "#*": {
-      "default": "./src/*/index.ts",
-      "import": "./src/*/index.ts"
-    },
     "#lib/*": {
       "default": "./src/lib/*/index.ts",
       "import": "./src/lib/*/index.ts"
@@ -16,6 +12,14 @@
     "#pkg": {
       "default": "./package.json",
       "import": "./package.json"
+    },
+    "#env": {
+      "default": "./src/constants/env.ts",
+      "import": "./src/constants/env.ts"
+    },
+    "#*": {
+      "default": "./src/*/index.ts",
+      "import": "./src/*/index.ts"
     }
   },
   "scripts": {
