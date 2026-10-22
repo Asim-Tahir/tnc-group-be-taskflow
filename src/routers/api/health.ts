@@ -1,10 +1,14 @@
 import { Router } from "express";
+import type { ParamsDictionary } from "express-serve-static-core";
+
+import type { ResponseBody } from "#types";
 
 const healthRouter = Router();
 
-healthRouter.get("/", (_req, res) => {
+healthRouter.get<ParamsDictionary, ResponseBody<null>, any>("/", (_req, res) => {
   res.status(200).json({
     success: true,
+    data: null
   });
 });
 
