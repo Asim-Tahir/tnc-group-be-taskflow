@@ -44,6 +44,7 @@
     "@types/express": "^5.0.6",
     "@types/node": "^24.19.2",
     "@types/swagger-ui-dist": "^3.30.6",
+    "cross-env": "^10.1.0",
     "typescript": "^7.0.2"
   },
   "engines": {
