@@ -13,6 +13,11 @@
       "default": "./package.json",
       "import": "./package.json"
     },
+    "#types": {
+      "types": "./src/types/index.d.ts",
+      "default": "./src/types/index.d.ts",
+      "import": "./src/types/index.d.ts"
+    },
     "#src/*": {
       "default": "./src/*.ts",
       "import": "./src/*.ts"
