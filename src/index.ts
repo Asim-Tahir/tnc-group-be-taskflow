@@ -12,6 +12,6 @@ import "#lib/zod";
 import app from "#src/app";
 
 app.listen(PORT, () => {
-  console.log(`${styleText(["green", "bold", "italic"], "Taskflow")} server is running on ${styleText(["grey", "underline"], `http://localhost:${PORT}`)}`);
-  console.log(`${styleText(["greenBright", "bold", "italic"], "Swagger UI")} is running on ${styleText(["grey", "underline"], `http://localhost:${PORT}/swagger/`)}\n`);
+  console.log(`${styleText(["green", "bold", "italic"], "Taskflow")} server is running on ${styleText(["gray", "underline"], `http://localhost:${PORT}`)}`);
+  console.log(`${styleText(["greenBright", "bold", "italic"], "Swagger UI")} is running on ${styleText(["gray", "underline"], `http://localhost:${PORT}/swagger/`)}\n`);
 });
