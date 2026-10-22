@@ -1,6 +1,6 @@
 import { styleText } from "node:util";
 
-import { logger, loadDotEnv } from "#utils";
+import { loadDotEnv } from "#utils";
 
 await loadDotEnv();
 
@@ -12,5 +12,5 @@ import "#lib/zod";
 import app from "#src/app";
 
 app.listen(PORT, () => {
-  logger.log(`server is running on ${styleText(["grey", "underline"], `http://localhost:${PORT}`)}`);
+  console.log(`${styleText(["green", "bold", "italic"], "Taskflow")} server is running on ${styleText(["grey", "underline"], `http://localhost:${PORT}`)}`);
 });
