@@ -6,7 +6,7 @@ import {
     taskFilterQuerySchema,
     taskIdParamsSchema,
     taskPartialUpdateSchema,
-    taskReportsByStatusParamsSchema,
+    taskReportsStatusParamsSchema,
     taskSchema,
     taskSearchQuerySchema,
     taskSortationQuerySchema,
@@ -16,7 +16,7 @@ import {
     type TaskFilterQuerySchema,
     type TaskIdParamsSchema,
     type TaskPartialUpdateSchema,
-    type TaskReportsByStatusParamsSchema,
+    type TaskReportsStatusParamsSchema,
     type TaskSchema,
     type TaskSearchQuerySchema,
     type TaskSortationQuerySchema,
@@ -152,14 +152,14 @@ export async function validateTaskAssigneeParamsParamsAsync<T extends object = o
 // #endregioon
 
 // #region Task Reports
-export function validateTaskReportsByStatusParams<T extends object = object>(params: T): z.core.util.SafeParseResult<TaskReportsByStatusParamsSchema> {
-  const result = taskReportsByStatusParamsSchema.safeParse(params);
+export function validateTaskReportsStatusParams<T extends object = object>(params: T): z.core.util.SafeParseResult<TaskReportsStatusParamsSchema> {
+  const result = taskReportsStatusParamsSchema.safeParse(params);
 
   return result;
 }
 
-export async function validateTaskReportsByStatusParamsAsync<T extends object = object>(params: T): Promise<z.core.util.SafeParseResult<TaskReportsByStatusParamsSchema>> {
-  const result = await taskReportsByStatusParamsSchema.safeParseAsync(params);
+export async function validateTaskReportsStatusParamsAsync<T extends object = object>(params: T): Promise<z.core.util.SafeParseResult<TaskReportsStatusParamsSchema>> {
+  const result = await taskReportsStatusParamsSchema.safeParseAsync(params);
 
   return result;
 }

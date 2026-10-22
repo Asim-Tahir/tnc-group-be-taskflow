@@ -46,10 +46,10 @@ export type TaskUpdateSchema = z.infer<typeof taskUpdateSchema>;
 export const taskPartialUpdateSchema = z.partial(taskUpdateSchema);
 export type TaskPartialUpdateSchema = z.infer<typeof taskPartialUpdateSchema>;
 
-export const taskReportsByStatusParamsSchema = z.object({
+export const taskReportsStatusParamsSchema = z.object({
   status: taskStatusSchema
 });
-export type TaskReportsByStatusParamsSchema = z.infer<typeof taskReportsByStatusParamsSchema>;
+export type TaskReportsStatusParamsSchema = z.infer<typeof taskReportsStatusParamsSchema>;
 
 export const taskFilterQuerySchema = z.partial(
   z.object({
