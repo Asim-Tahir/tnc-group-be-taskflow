@@ -1,0 +1,64 @@
+[
+  {
+    "assignee": "jordan-mitchell",
+    "createdAt": "2026-09-28T08:16:22.742Z",
+    "description": "Collect progress from each workstream, note any blockers, and share the update with stakeholders before Friday's review.",
+    "id": "7138f7d9-bb6c-4fc3-a631-7a8ba0108784",
+    "priority": "low",
+    "status": "completed",
+    "title": "Prepare the weekly project update"
+  },
+  {
+    "assignee": "alex-morgan",
+    "createdAt": "2026-09-25T12:00:00.000Z",
+    "description": "Share the meeting decisions, follow-up actions, and due dates with everyone who attended the review.",
+    "id": "b6ef4a79-77e2-4f9e-bcf1-a08bd8f925ab",
+    "priority": "medium",
+    "status": "completed",
+    "title": "Send project review notes",
+    "updatedAt": "2026-09-26T15:30:00.000Z"
+  },
+  {
+    "assignee": "jordan-mitchell",
+    "createdAt": "2026-10-18T09:00:00.000Z",
+    "description": "Check the room booking and presentation equipment, then send the confirmed details to all workshop attendees.",
+    "id": "61cb3fc4-f422-4e0b-8efc-9f7d57c8e37a",
+    "priority": "medium",
+    "status": "completed",
+    "title": "Confirm workshop venue and equipment"
+  },
+  {
+    "createdAt": "2026-10-19T10:30:00.000Z",
+    "description": "Compare recent progress with the agreed schedule and flag milestones that may need revised dates.",
+    "id": "9c1ac771-bdd4-4f64-9be9-1052318e7aa2",
+    "priority": "high",
+    "status": "pending",
+    "title": "Review project milestones with stakeholders"
+  },
+  {
+    "createdAt": "2026-10-19T13:15:00.000Z",
+    "description": "Gather discussion topics from the team, assign time to each item, and share the agenda before the meeting.",
+    "id": "f3a2b1c0-8c1e-4df4-a94f-2376d84a1b50",
+    "priority": "medium",
+    "status": "pending",
+    "title": "Prepare agenda for the next project review"
+  },
+  {
+    "assignee": "alex-morgan",
+    "createdAt": "2026-10-20T08:45:00.000Z",
+    "description": "Review open risks with their owners, record mitigation steps, and schedule the next progress check.",
+    "id": "d75f3b2a-6ef9-49e1-b786-1c0f23a87d54",
+    "priority": "high",
+    "status": "pending",
+    "title": "Update the project risk register"
+  },
+  {
+    "assignee": "casey-nguyen",
+    "createdAt": "2026-10-20T09:30:00.000Z",
+    "description": "Schedule introductions, confirm required account access, and share a clear first-week plan with the new starter.",
+    "id": "c2e317ba-9e4f-41da-8a52-ff4f9c38a621",
+    "priority": "medium",
+    "status": "pending",
+    "title": "Coordinate new team member onboarding"
+  }
+]
