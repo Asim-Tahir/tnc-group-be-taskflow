@@ -7,6 +7,7 @@ await loadDotEnv();
 import { PORT } from "#env";
 
 import "#lib/express";
+import "#lib/zod";
 
 import app from "#src/app";
 
