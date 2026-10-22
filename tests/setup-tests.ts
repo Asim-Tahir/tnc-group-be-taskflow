@@ -1,5 +1,7 @@
-import { loadDotEnv } from "#utils";
 import type { IncomingMessage, Server, ServerResponse } from "http";
+import { styleText } from "node:util";
+
+import { loadDotEnv } from "#utils";
 
 let server: Server<typeof IncomingMessage, typeof ServerResponse>;
 
@@ -15,6 +17,9 @@ export async function globalSetup() {
 
   server = app.listen(PORT);
   await new Promise((resolve) => server.once("listening", resolve));
+
+  console.log(`${styleText(["green", "bold", "italic"], "Taskflow")} server is running on ${styleText(["gray", "underline"], `http://localhost:${PORT}`)}`);
+  console.log(`${styleText(["greenBright", "bold", "italic"], "Swagger UI")} is running on ${styleText(["gray", "underline"], `http://localhost:${PORT}/swagger/`)}\n`);
 
   const address = server.address();
   if (!address || typeof address === "string") {
