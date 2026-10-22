@@ -13,6 +13,10 @@
       "default": "./package.json",
       "import": "./package.json"
     },
+    "#src/*": {
+      "default": "./src/*.ts",
+      "import": "./src/*.ts"
+    },
     "#env": {
       "default": "./src/constants/env.ts",
       "import": "./src/constants/env.ts"
