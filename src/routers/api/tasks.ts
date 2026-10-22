@@ -44,11 +44,11 @@ tasksRouter.get<ParamsDictionary, ResponseBodyPaginated<TaskSchema>, any, TaskFi
     let filteredTasks = structuredClone(tasks);
 
     if (title) {
-      filteredTasks = filteredTasks.filter((task) => task.title.includes(title));
+      filteredTasks = filteredTasks.filter((task) => task.title.toLocaleLowerCase("tr-TR").includes(title.toLocaleLowerCase("tr-TR")));
     }
 
     if (description) {
-      filteredTasks = filteredTasks.filter((task) => task.description?.includes?.(description));
+      filteredTasks = filteredTasks.filter((task) => task.description?.toLocaleLowerCase("tr-TR")?.includes?.(description?.toLocaleLowerCase("tr-TR")));
     }
 
     if (status) {
