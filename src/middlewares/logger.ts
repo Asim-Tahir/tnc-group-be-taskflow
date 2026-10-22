@@ -7,13 +7,13 @@ import { logger } from "#utils";
 /**
  * Log request method and original URL
  */
-const loggerMiddleware: RequestHandler = (req, _res, next) => {
+const loggerMiddleware: RequestHandler = (req, res, next) => {
   const reqMethod = req.method;
   const reqOriginalUrl = req.originalUrl;
-  const timestamp = new Date().toISOString();
+  const reqTimestamp = new Date().toISOString();
   const reqIp = req.ip || req.socket.remoteAddress || "::1";
 
-  const styledTimestamp = styleText("gray", timestamp);
+  const styledReqTimestamp = styleText("gray", reqTimestamp);
   const styledReqIp = styleText(["dim", "underline"], reqIp);
   const styledReqOriginalUrl = styleText("cyan", reqOriginalUrl);
 
@@ -49,7 +49,7 @@ const loggerMiddleware: RequestHandler = (req, _res, next) => {
       break;
   }
 
-  logger.log(`[${styledTimestamp}] ${styledReqMethod} ${styledReqOriginalUrl} from ${styledReqIp}`);
+  logger.log(`[${styledReqTimestamp}] ${styledReqMethod} ${styledReqOriginalUrl} from ${styledReqIp}`);
 
   next();
 }
