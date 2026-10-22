@@ -13,7 +13,7 @@ export async function globalSetup() {
   const { default: app } = await import("#src/app");
   const { PORT } = await import("#env");
 
-  server = app.listen(0);
+  server = app.listen(PORT);
   await new Promise((resolve) => server.once("listening", resolve));
 
   const address = server.address();
@@ -28,6 +28,8 @@ export async function globalSetup() {
  */
 export async function globalTeardown() {
   await new Promise<void>((resolve, reject) => {
-    server.close((error) => error ? reject(error) : resolve());
+    if (server) {
+      server.close((error) => error ? reject(error) : resolve());
+    }
   });
 }
