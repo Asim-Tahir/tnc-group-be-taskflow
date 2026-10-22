@@ -7,6 +7,7 @@ import {
   validateTaskFilterQuery,
   validateTaskIdParams,
   validateTaskPartialUpdate,
+  validateTaskReportsStatusParams,
   validateTaskSearchQuery,
   validateTaskSortationQuery,
   validateTaskUpdate
@@ -146,3 +147,16 @@ export const taskPartialUpdateBodyValidationMiddleware: RequestHandler = (req, r
   next();
 }
 
+/**
+ * Validate task reports summary request params
+ */
+export const taskReportsStatusParamsValidationMiddleware: RequestHandler = (req, res, next) => {
+  const result = validateTaskReportsStatusParams(req.params);
+
+  if (!result?.success) {
+    res.status(400).errors(result.error);
+    return;
+  }
+
+  next();
+}
