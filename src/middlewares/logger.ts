@@ -51,6 +51,42 @@ const loggerMiddleware: RequestHandler = (req, res, next) => {
 
   logger.log(`[${styledReqTimestamp}] ${styledReqMethod} ${styledReqOriginalUrl} from ${styledReqIp}`);
 
+  res.on("finish", () => {
+    const resStatusCode = String(res.statusCode);
+    const resStatusMessage = String(res.statusMessage || "OK");
+    const resTimestamp = new Date().toISOString();
+
+    const styledResTimestamp = styleText("gray", resTimestamp);
+
+    let styledStatusCode = "";
+    let styledStatusMessage = "";
+
+    const regex1XX = /^1\d\d$/i;
+    const regex2XX = /^2\d\d$/i;
+    const regex3XX = /^3\d\d$/i;
+    const regex4XX = /^4\d\d$/i;
+    const regex5XX = /^5\d\d$/i;
+
+    if (regex1XX.test(resStatusCode)) {
+      styledStatusCode = styleText(["bgBlue", "black"], ` ${resStatusCode} `);
+      styledStatusMessage = styleText("blue", resStatusMessage);
+    } else if (regex2XX.test(resStatusCode)) {
+      styledStatusCode = styleText(["bgGreen", "black"], ` ${resStatusCode} `);
+      styledStatusMessage = styleText("green", resStatusMessage);
+    } else if (regex3XX.test(resStatusCode)) {
+      styledStatusCode = styleText(["bgYellow", "black"], ` ${resStatusCode} `);
+      styledStatusMessage = styleText("yellow", resStatusMessage);
+    } else if (regex4XX.test(resStatusCode)) {
+      styledStatusCode = styleText(["bgRedBright", "white"], ` ${resStatusCode} `);
+      styledStatusMessage = styleText("redBright", resStatusMessage);
+    } else if (regex5XX.test(resStatusCode)) {
+      styledStatusCode = styleText(["red", "white"], ` ${resStatusCode} `);
+      styledStatusMessage = styleText("red", resStatusMessage);
+    }
+
+    logger.log(`[${styledResTimestamp}] ${styledStatusCode} ${styledStatusMessage}\n`);
+  });
+
   next();
 }
 
