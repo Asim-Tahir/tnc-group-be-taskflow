@@ -1,0 +1,322 @@
+{
+  "openapi": "3.2.1",
+  "info": {
+    "title": "Taskflow API",
+    "version": "1.0.0",
+    "description": "Task and Project management system"
+  },
+  "servers": [
+    { "url": "/", "name": "v1" }
+  ],
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "tags": ["Health"],
+        "summary": "Check API health",
+        "responses": {
+          "200": {
+            "description": "The API is available.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "success": { "type": "boolean", "enum": [true] } }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tasks": {
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "List and filter tasks",
+        "parameters": [
+          { "name": "title", "in": "query", "schema": { "type": "string", "minLength": 3 } },
+          { "name": "description", "in": "query", "schema": { "type": "string", "minLength": 3 } },
+          { "name": "status", "in": "query", "schema": { "type": "string", "enum": ["pending", "completed"] } },
+          { "name": "priority", "in": "query", "schema": { "type": "string", "enum": ["low", "medium", "high"] } },
+          { "name": "assignee", "in": "query", "schema": { "type": "string", "minLength": 3 } },
+          { "name": "sort", "in": "query", "schema": { "type": "string", "enum": ["title", "description", "status", "priority", "assignee", "createdAt", "updatedAt"] } },
+          { "name": "order", "in": "query", "schema": { "type": "string", "enum": ["asc", "desc"], "default": "asc" } },
+          { "name": "page", "in": "query", "description": "Currently rejected as a string by query validation.", "schema": { "type": "integer", "minimum": 1, "maximum": 99, "default": 1 } },
+          { "name": "limit", "in": "query", "description": "Currently rejected as a string by query validation.", "schema": { "type": "integer", "minimum": 1, "maximum": 99, "default": 10 } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/TaskList" },
+          "400": { "$ref": "#/components/responses/Error" }
+        }
+      },
+      "post": {
+        "tags": ["Tasks"],
+        "summary": "Create a task",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/TaskCreate" } }
+          }
+        },
+        "responses": {
+          "201": { "$ref": "#/components/responses/Task" },
+          "400": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/api/v1/tasks/search": {
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "Search task titles and descriptions",
+        "parameters": [
+          { "name": "keyword", "in": "query", "schema": { "type": "string" } },
+          { "$ref": "#/components/parameters/Page" },
+          { "$ref": "#/components/parameters/Limit" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/TaskList" },
+          "400": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/api/v1/tasks/{id}": {
+      "parameters": [
+        { "$ref": "#/components/parameters/TaskId" }
+      ],
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "Get a task by ID",
+        "responses": {
+          "200": { "$ref": "#/components/responses/Task" },
+          "400": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" }
+        }
+      },
+      "put": {
+        "tags": ["Tasks"],
+        "summary": "Update a task",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/TaskUpdate" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/Task" },
+          "400": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" }
+        }
+      },
+      "patch": {
+        "tags": ["Tasks"],
+        "summary": "Update selected task fields",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/TaskPartialUpdate" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/Task" },
+          "400": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" }
+        }
+      },
+      "delete": {
+        "tags": ["Tasks"],
+        "summary": "Delete a task",
+        "responses": {
+          "200": { "$ref": "#/components/responses/Task" },
+          "400": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/api/v1/tasks/assignee/{assignee}": {
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "List tasks assigned to a team member",
+        "parameters": [
+          {
+            "name": "assignee",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "minLength": 3, "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" }
+          },
+          { "$ref": "#/components/parameters/Page" },
+          { "$ref": "#/components/parameters/Limit" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/TaskList" },
+          "400": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/api/v1/reports/summary": {
+      "get": {
+        "tags": ["Reports"],
+        "summary": "Summarize tasks by status, priority, and assignee",
+        "responses": {
+          "200": {
+            "description": "Task counts grouped by status, priority, and assignee.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "total": { "type": "integer" },
+                        "breakdown": {
+                          "type": "object",
+                          "properties": {
+                            "status": { "type": "object", "additionalProperties": { "type": "integer" } },
+                            "priority": { "type": "object", "additionalProperties": { "type": "integer" } },
+                            "assignee": { "type": "object", "additionalProperties": { "type": "integer" } }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reports/{status}": {
+      "get": {
+        "tags": ["Reports"],
+        "summary": "List tasks by status",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "enum": ["pending", "completed"] }
+          },
+          { "$ref": "#/components/parameters/Page" },
+          { "$ref": "#/components/parameters/Limit" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/TaskList" },
+          "400": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "TaskId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string", "format": "uuid" }
+      },
+      "Page": {
+        "name": "page",
+        "in": "query",
+        "description": "Page number, from 1 to 99. Defaults to 1.",
+        "schema": { "type": "integer", "minimum": 1, "maximum": 99, "default": 1 }
+      },
+      "Limit": {
+        "name": "limit",
+        "in": "query",
+        "description": "Page size, from 1 to 99. Defaults to 10.",
+        "schema": { "type": "integer", "minimum": 1, "maximum": 99, "default": 10 }
+      }
+    },
+    "schemas": {
+      "Task": {
+        "type": "object",
+        "required": ["id", "title", "status", "priority", "createdAt"],
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "title": { "type": "string", "minLength": 3 },
+          "description": { "type": "string", "minLength": 16 },
+          "status": { "type": "string", "enum": ["pending", "completed"] },
+          "priority": { "type": "string", "enum": ["low", "medium", "high"] },
+          "assignee": { "type": "string", "minLength": 3, "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "TaskCreate": {
+        "type": "object",
+        "required": ["title", "status", "priority"],
+        "properties": {
+          "title": { "type": "string", "minLength": 3 },
+          "description": { "type": "string", "minLength": 16 },
+          "status": { "type": "string", "enum": ["pending"] },
+          "priority": { "type": "string", "enum": ["low", "medium", "high"] }
+        }
+      },
+      "TaskUpdate": {
+        "type": "object",
+        "required": ["title", "status", "priority"],
+        "properties": {
+          "title": { "type": "string", "minLength": 3 },
+          "description": { "type": "string", "minLength": 16 },
+          "status": { "type": "string", "enum": ["pending", "completed"] },
+          "priority": { "type": "string", "enum": ["low", "medium", "high"] },
+          "assignee": { "type": "string", "minLength": 3, "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" }
+        }
+      },
+      "TaskPartialUpdate": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "minLength": 3 },
+          "description": { "type": "string", "minLength": 16 },
+          "status": { "type": "string", "enum": ["pending", "completed"] },
+          "priority": { "type": "string", "enum": ["low", "medium", "high"] },
+          "assignee": { "type": "string", "minLength": 3, "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" }
+        }
+      },
+      "TaskResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": { "type": "boolean", "enum": [true] },
+          "data": { "$ref": "#/components/schemas/Task" },
+          "message": { "type": "string" }
+        }
+      },
+      "TaskListResponse": {
+        "type": "object",
+        "required": ["success", "data", "page", "limit", "total"],
+        "properties": {
+          "success": { "type": "boolean", "enum": [true] },
+          "data": { "type": "array", "items": { "$ref": "#/components/schemas/Task" } },
+          "page": { "type": "integer" },
+          "limit": { "type": "integer" },
+          "total": { "type": "integer", "description": "Number of tasks returned in this page." }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": ["success", "errors"],
+        "properties": {
+          "success": { "type": "boolean", "enum": [false] },
+          "errors": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "responses": {
+      "Task": {
+        "description": "The task response.",
+        "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TaskResponse" } } }
+      },
+      "TaskList": {
+        "description": "The task list response.",
+        "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TaskListResponse" } } }
+      },
+      "Error": {
+        "description": "The request is invalid or the resource was not found.",
+        "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } }
+      }
+    }
+  }
+}
