@@ -6,7 +6,9 @@ await loadDotEnv();
 
 import { PORT } from "#env";
 
-import app from "./app.ts";
+import "#lib/express";
+
+import app from "#src/app";
 
 app.listen(PORT, () => {
   logger.log(`server is running on ${styleText(["grey", "underline"], `http://localhost:${PORT}`)}`);
