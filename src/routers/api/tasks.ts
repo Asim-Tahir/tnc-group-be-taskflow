@@ -130,7 +130,7 @@ tasksRouter.get<ParamsDictionary, ResponseBodyPaginated<TaskSchema>, any, TaskFi
       data: filteredTasks,
       page,
       limit,
-      total: filteredTasks.length,
+      total: tasks.length,
     });
   },
 );
@@ -153,7 +153,7 @@ tasksRouter.get<ParamsDictionary, ResponseBodyPaginated<TaskSchema>, any, TaskSe
     data: filteredTasks,
     page,
     limit,
-    total: filteredTasks.length,
+    total: tasks.length,
   });
 });
 
@@ -270,7 +270,7 @@ tasksRouter.get<TaskAssigneeParamsSchema, ResponseBodyPaginated<TaskSchema>, any
       data: filteredTasks,
       page,
       limit,
-      total: filteredTasks.length,
+      total: tasks.length,
     });
   }
 );
