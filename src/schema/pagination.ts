@@ -9,8 +9,8 @@ import {
 
 export const paginationQuerySchema = z.partial(
   z.object({
-    page: z.number().check(z.minimum(PAGINATION_MIN_PAGE), z.maximum(PAGINATION_MAX_PAGE)),
-    limit: z.number().check(z.minimum(PAGINATION_MIN_LIMIT), z.maximum(PAGINATION_MAX_LIMIT))
+    page: z.coerce.number().check(z.minimum(PAGINATION_MIN_PAGE), z.maximum(PAGINATION_MAX_PAGE)),
+    limit: z.coerce.number().check(z.minimum(PAGINATION_MIN_LIMIT), z.maximum(PAGINATION_MAX_LIMIT))
   })
 );
 
