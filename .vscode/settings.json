@@ -8,6 +8,6 @@
     }
   ],
   "explorer.fileNesting.patterns": {
-    "*.ts": "${basename}.json",
+    "*.ts": "${basename}.json, ${basename}.test.ts",
   }
 }
